@@ -6,7 +6,7 @@ export interface ObserverSettings {
   enabled: boolean; url: string; username: string; password: string
   iata: string; withGps: boolean
 }
-export const defaultObserver: ObserverSettings = { enabled: false, url: '', username: '', password: '', iata: '', withGps: false }
+export const defaultObserver: ObserverSettings = { enabled: false, url: '', username: '', password: '', iata: 'KLU', withGps: false }
 
 export const mode = signal<Mode>('simple')
 export const lang = signal<'de' | 'en'>('de')

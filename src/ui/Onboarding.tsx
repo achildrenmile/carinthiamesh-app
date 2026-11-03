@@ -27,6 +27,9 @@ export function Onboarding() {
       await c.setRadio(p.radio.freqMHz!, p.radio.bwKHz!, p.radio.sf!, p.radio.cr!)
       if (p.radio.txPowerDbm != null) await c.setTxPower(p.radio.txPowerDbm)
     }
+    const c = getClient()
+    if (p.pathHashMode != null) await c.setPathHashMode(p.pathHashMode)
+    if (p.multiAcks != null && selfInfo.value) await c.setMultiAcks(selfInfo.value, p.multiAcks)
   }, 4)
 
   const joinChannels = () => run(async () => {

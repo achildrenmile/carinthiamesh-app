@@ -40,4 +40,9 @@ export const setChannel = (idx: number, name: string, secret: Uint8Array) => {
 }
 export const sendLogin = (pubKey: Uint8Array, password: string) => concat(bytes(Cmd.SendLogin), pubKey, text(password))
 export const sendStatusReq = (pubKey: Uint8Array) => concat(bytes(Cmd.SendStatusReq), pubKey)
+/** Firmware: CMD 61 | 0 | mode (0..2). */
+export const setPathHashMode = (mode: number) => bytes(Cmd.SetPathHashMode, 0, mode)
+/** SET_OTHER_PARAMS überschreibt alle Felder; deshalb immer die aktuellen Werte mitsenden. */
+export const setOtherParams = (manualAddContacts: number, telemetryMode: number, advLocPolicy: number, multiAcks: number) =>
+  bytes(Cmd.SetOtherParams, manualAddContacts, telemetryMode, advLocPolicy, multiAcks)
 export const reboot = () => concat(bytes(Cmd.Reboot), text('reboot'))

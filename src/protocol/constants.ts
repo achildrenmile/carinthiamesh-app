@@ -21,6 +21,8 @@ export const Cmd = {
   Reboot: 19,
   GetBattAndStorage: 20,
   DeviceQuery: 22,
+  SetOtherParams: 38,
+  SetPathHashMode: 61,
   SendLogin: 26,
   SendStatusReq: 27,
   GetChannel: 31,

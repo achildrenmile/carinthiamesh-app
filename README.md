@@ -32,7 +32,7 @@ Dauerbetrieb im Hintergrund soll später die native Variante bringen ([ADR-002](
 ## Funk-Preset eintragen
 
 Die Funkparameter stehen **nicht** im Code, sondern in [`public/presets/at.json`](public/presets/at.json).
-Solange dort `null` steht, lässt der Assistent die Funkeinstellung des Geräts unverändert. Standardkanäle
+Vorbelegt mit den Werten aus dem [CarinthiaMesh-Wiki](https://wiki.carinthiamesh.com/netz/einstellungen) (869,618 MHz, 62,5 kHz, SF8, CR8, Path-Hash 2 Byte, Multi-Acks, Kanal `#at-ktn`). Steht ein Funkwert auf `null`, lässt der Assistent ihn unverändert. Standardkanäle
 trägst du im selben File ein (`secretHex` oder `"hashtag": true`).
 Keine Zugangsdaten ins Repo! Broker-Zugang gibt jeder in der App ein.
 
@@ -51,7 +51,7 @@ Entscheidungen: [ADR-001](docs/ADR-001-protokoll-lib.md), [Spike-Ergebnis](docs/
 
 ## Betrieb
 
-Statische Seite hinter nginx ([Dockerfile](Dockerfile), [deploy/](deploy/)); kein Backend.
+Statische Seite, ohne Backend. Zwei Wege: **GitHub Pages** (Workflow `pages.yml`, HTTPS inklusive) oder Container hinter nginx ([Dockerfile](Dockerfile), [deploy/](deploy/)).
 Bekannt: Kartenkacheln kommen von openstreetmap.org (die IP des Nutzers geht dorthin).
 
 ## Lizenz

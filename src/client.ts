@@ -114,6 +114,11 @@ export class Client {
 
   sendChannelMessage(idx: number, text: string) { return this.exec(C.sendChannelMsg(idx, text, Math.floor(Date.now() / 1000))) }
   sendDirectMessage(pubKey: Uint8Array, text: string) { return this.exec(C.sendDirectMsg(pubKey, text, Math.floor(Date.now() / 1000))) }
+  setPathHashMode(mode: number) { return this.exec(C.setPathHashMode(mode)) }
+  /** Setzt Multi-Acks und lässt alle übrigen "Other params" unverändert. */
+  setMultiAcks(self: SelfInfo, multiAcks: number) {
+    return this.exec(C.setOtherParams(self.manualAddContacts, self.telemetryMode, self.advLocPolicy, multiAcks))
+  }
   setName(name: string) { return this.exec(C.setAdvertName(name)) }
   setRadio(freqMHz: number, bwKHz: number, sf: number, cr: number) { return this.exec(C.setRadioParams(freqMHz, bwKHz, sf, cr)) }
   setTxPower(dbm: number) { return this.exec(C.setTxPower(dbm)) }

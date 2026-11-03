@@ -44,7 +44,7 @@ export function Settings() {
       <div class="banner">{t('set_obs_bg')}</div>
       <label style="font-weight:400"><input type="checkbox" style="width:auto;min-height:0" checked={o.enabled} onChange={e => set('enabled', (e.target as HTMLInputElement).checked)} /> {t('set_obs_enabled')}</label>
       <label>{t('set_obs_url')}</label>
-      <input value={o.url} placeholder="wss://broker.example.org:443/mqtt" autocapitalize="off" onInput={e => set('url', (e.target as HTMLInputElement).value)} />
+      <input value={o.url} placeholder="wss://mqtt.carinthiamesh.com:443/…" autocapitalize="off" onInput={e => set('url', (e.target as HTMLInputElement).value)} />
       <label>{t('set_obs_user')}</label>
       <input value={o.username} autocomplete="off" autocapitalize="off" onInput={e => set('username', (e.target as HTMLInputElement).value)} />
       <label>{t('set_obs_pass')}</label>

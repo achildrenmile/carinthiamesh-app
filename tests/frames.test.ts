@@ -93,3 +93,14 @@ describe('CayenneLPP (Big-Endian)', () => {
     expect([...unparsedTail]).toEqual([2, 200, 9, 9])
   })
 })
+
+import { setOtherParams, setPathHashMode, setRadioParams } from '../src/protocol/commands'
+describe('Einstell-Befehle', () => {
+  it('SET_RADIO_PARAMS: kHz bzw. Hz als u32 LE (869,618 MHz / 62,5 kHz / SF8 / CR8)', () => {
+    expect([...setRadioParams(869.618, 62.5, 8, 8)]).toEqual([11, ...u32(869618), ...u32(62500), 8, 8])
+  })
+  it('Path-Hash-Mode und Other-Params', () => {
+    expect([...setPathHashMode(1)]).toEqual([61, 0, 1])
+    expect([...setOtherParams(0, 0x15, 2, 1)]).toEqual([38, 0, 0x15, 2, 1])
+  })
+})

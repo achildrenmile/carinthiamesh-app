@@ -17,3 +17,17 @@ describe('Preset', () => {
     expect(radioComplete({ freqMHz: 869.6, bwKHz: 62.5, sf: 8, cr: 8, txPowerDbm: null })).toBe(true)
   })
 })
+
+describe('Wiki-Preset (wiki.carinthiamesh.com)', () => {
+  it('Kanalschlüssel #at-ktn und #at-ktn-bot stimmen mit den Kontrollwerten im Wiki überein', async () => {
+    expect(toHex(await channelSecret({ name: '#at-ktn', hashtag: true }))).toBe('a198f68a114f515766f3abbfa96f5b11')
+    expect(toHex(await channelSecret({ name: '#at-ktn-bot', hashtag: true }))).toBe('7daf6ccf710971e970478918538fa5ee')
+  })
+  it('at.json ist vollständig und passt zu den Wiki-Werten', async () => {
+    const { readFileSync } = await import('node:fs')
+    const p = JSON.parse(readFileSync('public/presets/at.json', 'utf8'))
+    expect(radioComplete(p.radio)).toBe(true)
+    expect(p.radio).toMatchObject({ freqMHz: 869.618, bwKHz: 62.5, sf: 8, cr: 8 })
+    expect(p.iata).toBe('KLU')
+  })
+})

@@ -2,7 +2,10 @@ export interface Preset {
   id: string; name: { de: string; en: string }
   radio: { freqMHz: number | null; bwKHz: number | null; sf: number | null; cr: number | null; txPowerDbm: number | null }
   channels: Array<{ name: string; secretHex?: string; hashtag?: boolean }>
+  pathHashMode?: number | null   // 0 = 1 Byte, 1 = 2 Byte, 2 = 3 Byte
+  multiAcks?: number | null      // 0 oder 1 zusätzliche ACKs
   iata: string | null
+  brokerHost?: string
 }
 export type RadioPreset = Preset['radio']
 

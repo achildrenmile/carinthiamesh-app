@@ -1,9 +1,13 @@
 {
-  "_hinweis": "Funkparameter hier selbst eintragen. Solange ein Wert null ist, überspringt der Assistent die Funk-Einstellung und lässt das Gerät unverändert. freqMHz in MHz, bwKHz in kHz, txPowerDbm in dBm.",
+  "_quelle": "https://wiki.carinthiamesh.com/netz/einstellungen und /kanaele (Stand Wiki 30.10.2026). Frequenz, Bandbreite und SF müssen netzweit identisch sein; CR darf abweichen. txPowerDbm bewusst null: Obergrenze ist 500 mW e.r.p., hängt von Antenne und Modul ab.",
   "id": "at",
-  "name": { "de": "Österreich", "en": "Austria" },
-  "radio": { "freqMHz": null, "bwKHz": null, "sf": null, "cr": null, "txPowerDbm": null },
-  "channels": [],
-  "_kanalBeispiel": { "name": "#kaernten", "secretHex": "32 Hex-Zeichen (16 Byte), oder statt secretHex: \"hashtag\": true für #-Kanäle (Schlüssel = erste 16 Byte SHA-256 des Namens)" },
-  "iata": null
+  "name": { "de": "Österreich (EU/UK Narrow)", "en": "Austria (EU/UK Narrow)" },
+  "radio": { "freqMHz": 869.618, "bwKHz": 62.5, "sf": 8, "cr": 8, "txPowerDbm": null },
+  "pathHashMode": 1,
+  "multiAcks": 1,
+  "channels": [
+    { "name": "#at-ktn", "hashtag": true }
+  ],
+  "iata": "KLU",
+  "brokerHost": "mqtt.carinthiamesh.com"
 }
