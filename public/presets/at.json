@@ -1,0 +1,9 @@
+{
+  "_hinweis": "Funkparameter hier selbst eintragen. Solange ein Wert null ist, überspringt der Assistent die Funk-Einstellung und lässt das Gerät unverändert. freqMHz in MHz, bwKHz in kHz, txPowerDbm in dBm.",
+  "id": "at",
+  "name": { "de": "Österreich", "en": "Austria" },
+  "radio": { "freqMHz": null, "bwKHz": null, "sf": null, "cr": null, "txPowerDbm": null },
+  "channels": [],
+  "_kanalBeispiel": { "name": "#kaernten", "secretHex": "32 Hex-Zeichen (16 Byte), oder statt secretHex: \"hashtag\": true für #-Kanäle (Schlüssel = erste 16 Byte SHA-256 des Namens)" },
+  "iata": null
+}

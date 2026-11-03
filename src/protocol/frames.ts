@@ -1,4 +1,4 @@
-import { MAX_PATH_SIZE, Push, PUB_KEY_SIZE, Resp } from './constants'
+import { MAX_PATH_SIZE, Push, PUB_KEY_SIZE, Resp, TxtType } from './constants'
 import { Reader } from './reader'
 
 export interface SelfInfo {
@@ -17,6 +17,9 @@ export interface Contact {
 export interface ChannelInfo { index: number; name: string; secret: Uint8Array }
 export interface LogRxData { snr: number; rssi: number; raw: Uint8Array }
 export interface TelemetryPush { pubKeyPrefix: Uint8Array; lpp: Uint8Array }
+export interface ContactMsg { snr?: number; senderPrefix: Uint8Array; pathLen: number; txtType: number; timestamp: number; text: string }
+export interface ChannelMsg { snr?: number; channelIdx: number; pathLen: number; txtType: number; timestamp: number; text: string }
+export interface LoginResult { ok: boolean; permissions?: number; pubKeyPrefix: Uint8Array }
 export interface Sent { flood: boolean; tag: number; timeoutMs: number }
 
 export type Frame =
@@ -32,6 +35,11 @@ export type Frame =
   | { kind: 'battery'; millivolts: number; usedKb?: number; totalKb?: number }
   | { kind: 'deviceInfo'; info: DeviceInfo }
   | { kind: 'channelInfo'; channel: ChannelInfo }
+  | { kind: 'contactMsg'; msg: ContactMsg }
+  | { kind: 'channelMsg'; msg: ChannelMsg }
+  | { kind: 'sendConfirmed'; ack: number; tripMs: number }
+  | { kind: 'login'; result: LoginResult }
+  | { kind: 'status'; pubKeyPrefix: Uint8Array; data: Uint8Array }
   | { kind: 'advert'; publicKey: Uint8Array }
   | { kind: 'msgWaiting' }
   | { kind: 'logRx'; data: LogRxData }
@@ -91,6 +99,25 @@ export function parseFrame(bytes: Uint8Array): Frame {
       return { kind: 'deviceInfo', info }
     }
     case Resp.ChannelInfo: return { kind: 'channelInfo', channel: { index: r.u8(), name: r.cstr(32), secret: r.take(16) } }
+    case Resp.ContactMsgRecv:
+    case Resp.ContactMsgRecvV3: {
+      let snr: number | undefined
+      if (code === Resp.ContactMsgRecvV3) { snr = r.i8() / 4; r.take(2) }
+      const senderPrefix = r.take(6), pathLen = r.u8(), txtType = r.u8(), timestamp = r.u32()
+      if (txtType === TxtType.Signed) r.take(4) // 4-Byte-Signaturpräfix des Absenders
+      return { kind: 'contactMsg', msg: { snr, senderPrefix, pathLen, txtType, timestamp, text: new TextDecoder().decode(r.rest()) } }
+    }
+    case Resp.ChannelMsgRecv:
+    case Resp.ChannelMsgRecvV3: {
+      let snr: number | undefined
+      if (code === Resp.ChannelMsgRecvV3) { snr = r.i8() / 4; r.take(2) }
+      const channelIdx = r.u8(), pathLen = r.u8(), txtType = r.u8(), timestamp = r.u32()
+      return { kind: 'channelMsg', msg: { snr, channelIdx, pathLen, txtType, timestamp, text: new TextDecoder().decode(r.rest()) } }
+    }
+    case Push.SendConfirmed: return { kind: 'sendConfirmed', ack: r.u32(), tripMs: r.u32() }
+    case Push.LoginSuccess: { const permissions = r.u8(); return { kind: 'login', result: { ok: true, permissions, pubKeyPrefix: r.take(6) } } }
+    case Push.LoginFail: { r.u8(); return { kind: 'login', result: { ok: false, pubKeyPrefix: r.take(6) } } }
+    case Push.StatusResponse: { r.u8(); return { kind: 'status', pubKeyPrefix: r.take(6), data: r.rest() } }
     case Push.Advert: return { kind: 'advert', publicKey: r.take(PUB_KEY_SIZE) }
     case Push.MsgWaiting: return { kind: 'msgWaiting' }
     case Push.LogRxData: return { kind: 'logRx', data: { snr: r.i8() / 4, rssi: r.i8(), raw: r.rest() } }

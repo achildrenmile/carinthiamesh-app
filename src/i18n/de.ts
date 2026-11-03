@@ -1,0 +1,48 @@
+export const de = {
+  appName: 'MeshCore-Client von CarinthiaMesh',
+  nav_chat: 'Chat', nav_contacts: 'Kontakte', nav_map: 'Karte', nav_telemetry: 'Messwerte', nav_device: 'Gerät', nav_settings: 'Einstellungen',
+  connect: 'Mit Funkgerät verbinden', disconnect: 'Trennen', connecting: 'Verbinde …', connected: 'Verbunden', lost: 'Verbindung verloren',
+  reconnect: 'Erneut verbinden', notConnected: 'Nicht verbunden',
+  support_ios: 'Dieser Browser kann keine Bluetooth-Geräte ansprechen. Auf iPhone und iPad bitte die kostenlose App „Bluefy“ verwenden und diese Seite dort öffnen.',
+  support_other: 'Dieser Browser unterstützt kein Web Bluetooth. Bitte Chrome oder Edge verwenden.',
+  // Onboarding
+  ob_welcome: 'Willkommen im MeshCore-Netz', ob_welcome_text: 'MeshCore ist ein Funknetz ohne Internet. Mit dieser App sprichst du über dein Funkgerät mit anderen in Kärnten und darüber hinaus.',
+  ob_step1: 'Schritt 1 von 4: Funkgerät verbinden', ob_step1_text: 'Schalte dein Funkgerät ein und tippe auf den Knopf. Wähle dein Gerät in der Liste aus.',
+  ob_step2: 'Schritt 2 von 4: Dein Name', ob_step2_text: 'So sehen dich andere im Netz. Bei Repeatern bitte das Schema AT-Bezirk-Ort verwenden.', ob_name: 'Dein Name',
+  ob_step3: 'Schritt 3 von 4: Funk einrichten', ob_step3_text: 'Die Standard-Einstellungen für Österreich werden auf dein Gerät übertragen.',
+  ob_step3_missing: 'Für Österreich sind noch keine Funk-Einstellungen hinterlegt. Dein Gerät bleibt unverändert.',
+  ob_apply: 'Einstellungen übertragen', ob_skip: 'Überspringen',
+  ob_step4: 'Schritt 4 von 4: Kanäle', ob_step4_text: 'Du trittst den Standard-Kanälen bei.', ob_step4_none: 'Es sind keine Standard-Kanäle hinterlegt. Du kannst später Kanäle hinzufügen.',
+  ob_done: 'Fertig!', ob_done_text: 'Du bist bereit. Schreib deine erste Nachricht.', ob_start: 'Los geht’s', next: 'Weiter', back: 'Zurück', save: 'Speichern', cancel: 'Abbrechen',
+  ob_busy: 'Bitte warten …',
+  // Chat
+  chat_title: 'Gespräche', chat_channels: 'Kanäle', chat_direct: 'Direktnachrichten', chat_empty: 'Noch keine Nachrichten.', chat_placeholder: 'Nachricht schreiben …', chat_send: 'Senden',
+  chat_failed: 'Nicht gesendet', chat_sending: 'Wird gesendet …', chat_sent: 'Gesendet', chat_acked: 'Angekommen', chat_maxlen: 'Maximal {n} Zeichen',
+  chat_hops_direct: 'direkt', chat_hops: '{n} Stationen', chat_no_channels: 'Keine Kanäle auf dem Gerät. Verbinde dein Gerät.',
+  // Kontakte
+  contacts_title: 'Kontakte', contacts_empty: 'Noch keine Kontakte. Sie erscheinen, sobald Stationen in der Nähe senden.', contacts_search: 'Suchen …',
+  contact_message: 'Nachricht schreiben', type_chat: 'Person', type_repeater: 'Repeater', type_room: 'Raum', type_other: 'Sonstiges',
+  advert_send: 'Mich im Netz bekannt machen', advert_sent: 'Gesendet.',
+  // Karte
+  map_title: 'Karte', map_empty: 'Noch keine Kontakte mit Standort.',
+  // Telemetrie
+  tel_title: 'Messwerte', tel_fetch: 'Jetzt abrufen', tel_none: 'Noch keine Messwerte. Wähle einen Repeater und rufe sie ab.', tel_current: 'Aktuell', tel_delta: 'Änderung',
+  tel_watch: 'Regelmäßig abrufen', tel_interval: 'Abrufintervall', tel_interval_off: 'Nur manuell', tel_export_csv: 'CSV exportieren', tel_export_json: 'JSON exportieren',
+  tel_repeaters: 'Repeater und Sensoren', tel_waiting: 'Warte auf Antwort …', tel_error: 'Keine Antwort', tel_when: 'Stand',
+  // Gerät
+  dev_title: 'Gerät', dev_name: 'Gerätename', dev_radio: 'Funkparameter', dev_freq: 'Frequenz (MHz)', dev_bw: 'Bandbreite (kHz)', dev_sf: 'Spreading Factor', dev_cr: 'Coding Rate',
+  dev_tx: 'Sendeleistung (dBm)', dev_pos: 'Standort', dev_lat: 'Breite', dev_lon: 'Länge', dev_apply: 'Auf Gerät übernehmen', dev_flood: 'Advert (Flood)', dev_zerohop: 'Advert (nur Nachbarn)',
+  dev_reboot: 'Gerät neu starten', dev_info: 'Geräteinfo', dev_rawlog: 'Rohdaten (Protokoll)', dev_rxlog: 'Empfangene Pakete', dev_battery: 'Akku', dev_channels: 'Kanäle',
+  dev_ch_add: 'Kanal setzen', dev_ch_idx: 'Platz', dev_ch_name: 'Name', dev_ch_secret: 'Schlüssel (32 Hex-Zeichen) – leer bei #Hashtag-Kanal', dev_ch_warn: 'Der Schlüssel eines Kanals ist geheim. Teile ihn nur mit Personen, die mitlesen sollen.',
+  dev_login: 'Repeater-Login', dev_password: 'Passwort', dev_cli: 'Repeater-Befehl', dev_cli_send: 'Befehl senden', dev_ok: 'Übernommen.',
+  // Einstellungen
+  set_title: 'Einstellungen', set_mode: 'Modus', set_mode_simple: 'Einfach', set_mode_tinkerer: 'Tüftler', set_mode_simple_desc: 'Nur Chat, Kontakte und Karte.', set_mode_tinkerer_desc: 'Alle Geräteeinstellungen, Messwerte, Pfade, SNR und Rohdaten.',
+  set_lang: 'Sprache', set_observer: 'Beobachter (Observer)', set_observer_desc: 'Gehörte Pakete an einen MQTT-Broker senden. Funktioniert nur, solange diese Seite offen und der Bildschirm an ist.',
+  set_obs_enabled: 'Beobachter einschalten', set_obs_url: 'Broker-Adresse (wss://…)', set_obs_user: 'Benutzername', set_obs_pass: 'Passwort', set_obs_iata: 'Regionscode (IATA, 3 Buchstaben)', set_obs_gps: 'Handy-Standort mitsenden',
+  set_obs_state: 'Status', set_obs_sent: 'Gesendet', set_obs_buffered: 'Zwischengespeichert', set_obs_dropped: 'Verworfen',
+  set_obs_bg: 'Hinweis: Sobald der Bildschirm ausgeht oder die App in den Hintergrund wechselt, pausiert der Browser Bluetooth und Netzwerk. Der Beobachter pausiert dann auch (Chrome wie Bluefy).',
+  set_obs_secret: 'Zugangsdaten werden nur auf diesem Gerät im Browser gespeichert.',
+  set_reset: 'Alle lokalen Daten löschen', set_reset_confirm: 'Wirklich alles löschen? Nachrichten, Kontakte und Messwerte gehen verloren.', set_about: 'Über',
+  obs_off: 'Aus', obs_connecting: 'Verbinde …', obs_online: 'Online', obs_offline: 'Offline (puffert)', obs_error: 'Fehler',
+  error: 'Fehler', loading: 'Lädt …', hours_ago: 'vor {n} Std.', minutes_ago: 'vor {n} Min.', just_now: 'gerade eben',
+} as const

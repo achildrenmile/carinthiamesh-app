@@ -1,5 +1,6 @@
+import * as C from './protocol/commands'
 import { appStart, deviceQuery, getChannel, getContacts, getDeviceTime, setDeviceTime, telemetryReq } from './protocol/commands'
-import { type ChannelInfo, type Contact, type DeviceInfo, type Frame, type SelfInfo, isPush, parseFrame } from './protocol/frames'
+import { type ChannelInfo, type ChannelMsg, type ContactMsg, type Contact, type DeviceInfo, type Frame, type SelfInfo, isPush, parseFrame } from './protocol/frames'
 
 import type { Transport } from './transport/transport'
 
@@ -88,4 +89,40 @@ export class Client {
   async requestTelemetry(pubKey: Uint8Array) {
     return (await this.one(telemetryReq(pubKey), 'sent')).sent
   }
+
+  async batteryMv(): Promise<number> {
+    const f = await this.one(C.getBattAndStorage(), 'battery')
+    return f.millivolts
+  }
+
+  /** Führt einen Befehl aus, der mit OK/Sent/Fehler antwortet. Wirft bei Fehlerantwort. */
+  async exec(cmd: Uint8Array): Promise<Frame> {
+    const [f] = await this.request(cmd, x => x.kind === 'ok' || x.kind === 'sent')
+    if (f?.kind === 'err') throw new Error(`Gerät meldet Fehler ${f.code}`)
+    return f!
+  }
+
+  /** Holt die nächste wartende Nachricht; null wenn die Warteschlange leer ist. */
+  async nextMessage(): Promise<{ kind: 'contact'; msg: ContactMsg } | { kind: 'channel'; msg: ChannelMsg } | null> {
+    const [f] = await this.request(C.syncNextMessage(), x => x.kind === 'contactMsg' || x.kind === 'channelMsg' || x.kind === 'noMoreMessages')
+    if (!f || f.kind === 'noMoreMessages') return null
+    if (f.kind === 'contactMsg') return { kind: 'contact', msg: f.msg }
+    if (f.kind === 'channelMsg') return { kind: 'channel', msg: f.msg }
+    if (f.kind === 'err') throw new Error(`Gerät meldet Fehler ${f.code}`)
+    return null
+  }
+
+  sendChannelMessage(idx: number, text: string) { return this.exec(C.sendChannelMsg(idx, text, Math.floor(Date.now() / 1000))) }
+  sendDirectMessage(pubKey: Uint8Array, text: string) { return this.exec(C.sendDirectMsg(pubKey, text, Math.floor(Date.now() / 1000))) }
+  setName(name: string) { return this.exec(C.setAdvertName(name)) }
+  setRadio(freqMHz: number, bwKHz: number, sf: number, cr: number) { return this.exec(C.setRadioParams(freqMHz, bwKHz, sf, cr)) }
+  setTxPower(dbm: number) { return this.exec(C.setTxPower(dbm)) }
+  setPosition(lat: number, lon: number) { return this.exec(C.setAdvertLatLon(lat, lon)) }
+  setChannel(idx: number, name: string, secret: Uint8Array) { return this.exec(C.setChannel(idx, name, secret)) }
+  advert(flood: boolean) { return this.exec(C.sendSelfAdvert(flood)) }
+  login(pubKey: Uint8Array, password: string) { return this.exec(C.sendLogin(pubKey, password)) }
+  /** Reboot hat keine Antwort – das Gerät trennt die Verbindung. */
+  async reboot() { this.onRaw('tx', C.reboot()); await this.t.send(C.reboot()) }
+  /** Repeater-CLI: Textnachricht Typ CLI_DATA (1) an einen eingeloggten Repeater; Antwort kommt als Kontakt-Nachricht. */
+  repeaterCli(pubKey: Uint8Array, cmd: string) { return this.exec(C.sendDirectMsg(pubKey, cmd, Math.floor(Date.now() / 1000), 0, 1)) }
 }

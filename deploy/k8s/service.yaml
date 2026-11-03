@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  labels: { app: carinthiamesh-app }
+spec:
+  selector: { app: carinthiamesh-app }
+  ports:
+    - { name: http, port: 80, targetPort: http }
