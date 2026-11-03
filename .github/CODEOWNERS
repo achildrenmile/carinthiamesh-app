@@ -1,0 +1,10 @@
+# Änderungen an diesen Bereichen brauchen die Review eines Maintainers.
+*                       @achildrenmile
+/src/protocol/          @achildrenmile
+/src/transport/         @achildrenmile
+/src/client.ts          @achildrenmile
+/src/session.ts         @achildrenmile
+/src/observer/          @achildrenmile
+/public/presets/        @achildrenmile
+/src/data/db.ts         @achildrenmile
+/.github/               @achildrenmile
