@@ -16,7 +16,7 @@ jobs:
       # Unterpfad der Projektseite; bei eigener Domain (CNAME) auf "/" stellen.
       - run: npm run build
         env: { BASE_URL: "/carinthiamesh-app/" }
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with: { path: dist }
   deploy:
     needs: build
