@@ -61,7 +61,7 @@ Kontakt-Frame: `03 | pubkey(32) | type | flags | outPathLen | outPath(64) | name
 
 - **Bluefy:** Gleicher Web-Bluetooth-Code; Abweichungen (Picker, MTU, Reconnect, Hintergrund) erst am Gerät belegbar. Erwartung: Bluefy kann gelegentlich `writeValueWithResponse` ablehnen – dann auf `writeValue` zurückfallen. **Das ist eine Erwartung, kein Befund.**
 - **MTU/Frame-Größe:** Frames bis 176 Byte; ob Chrome-Android/Bluefy sie als *eine* Notification liefern oder aufteilen, ist ungeprüft. Ein zu kleiner MTU würde Parser mit „Frame zu kurz" scheitern lassen (sichtbar im Log, kein stilles Fehlparsen).
-- **Pairing:** Companion fragt BLE-PIN (`DEVICE_INFO.blePin`, Standard typischerweise 123456) – OS-Dialog, nicht von der App steuerbar.
+- **Pairing:** Companion fragt BLE-PIN (PIN steht in `DEVICE_INFO.blePin`; Standardwert nicht geprüft) – OS-Dialog, nicht von der App steuerbar.
 - Hintergrundbetrieb: Browser pausiert BLE bei Bildschirm-aus – bestätigt Phase-3-Einschränkung, nicht getestet.
 
 ## Checkliste für deinen Gerätetest (Chrome Android/Desktop, Bluefy)
