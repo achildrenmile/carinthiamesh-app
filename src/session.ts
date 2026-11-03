@@ -18,6 +18,9 @@ export const battery = signal<number | null>(null)
 export const rxLogCount = signal(0)
 export const lastRx = signal<{ snr: number; rssi: number; len: number; at: number } | null>(null)
 export const rawLog = signal<string[]>([])
+/** Verbindungsprotokoll der letzten Verbindungsversuche (auch bei Fehlschlag sichtbar). */
+export const connectLog = signal<string[]>([])
+const clog = (m: string) => { connectLog.value = [...connectLog.value.slice(-80), `${new Date().toISOString().slice(11, 23)} ${m}`] }
 export const RAW_LOG_MAX = 300
 
 let client: Client | null = null
@@ -44,15 +47,20 @@ export function browserSupport(): { ok: true } | { ok: false; reason: 'ios' | 'o
 
 export async function connect(t: Transport = new WebBluetoothTransport()) {
   connError.value = ''
+  connectLog.value = []
   connState.value = 'connecting'
+  t.log = clog
   try {
     await t.connect()
     transport = t
     t.onDisconnect(() => void onLost())
     client = new Client(t)
-    client.onRaw = (dir, b) => pushRaw(`${new Date().toISOString().slice(11, 23)} ${dir === 'tx' ? '→' : '←'} ${toHex(b)}`)
+    client.onRaw = (dir, b) => { clog(`${dir === 'tx' ? '→' : '←'} ${b.length} Byte (Code ${b[0]})`); pushRaw(`${new Date().toISOString().slice(11, 23)} ${dir === 'tx' ? '→' : '←'} ${toHex(b)}`) }
     client.onPush(f => void onPush(f))
-    const { self, device } = await client.start()
+    clog('Warte kurz, bis das Pairing abgeschlossen ist …')
+    await new Promise(r => setTimeout(r, 800))
+    const { self, device } = await client.start((n, err) => clog(n === 1 ? 'Handshake: APP_START senden' : `Handshake: Versuch ${n} (vorher: ${err instanceof Error ? err.message : err})`))
+    clog('Handshake erfolgreich')
     selfInfo.value = self
     deviceInfo.value = device
     connState.value = 'ready'
@@ -66,6 +74,7 @@ export async function connect(t: Transport = new WebBluetoothTransport()) {
     restartTelemetryTimer()
   } catch (e) {
     connError.value = e instanceof Error ? e.message : String(e)
+    clog(`FEHLER: ${connError.value}`)
     connState.value = 'idle'
     await t.disconnect().catch(() => undefined)
     throw e

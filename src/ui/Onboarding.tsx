@@ -3,7 +3,8 @@ import { channelSecret, loadPreset, radioComplete, type Preset } from '../data/p
 import { lang, saveLang, saveOnboarded } from '../data/settings'
 import { db } from '../data/db'
 import { t } from '../i18n'
-import { browserSupport, connError, connState, connect, deviceInfo, getClient, refreshChannels, selfInfo } from '../session'
+import { ConnectDiagnose } from './ConnectDiagnose'
+import { browserSupport, connState, connect, deviceInfo, getClient, refreshChannels, selfInfo } from '../session'
 
 type Step = 0 | 1 | 2 | 3 | 4 | 5
 
@@ -61,7 +62,8 @@ export function Onboarding() {
         ? <button class="big" disabled={!support.ok || busy || connState.value === 'connecting'} onClick={() => run(() => connect(), undefined)}>
             {connState.value === 'connecting' ? t('connecting') : t('connect')}</button>
         : <><p class="okc">✓ {t('connected')}: {selfInfo.value?.name}</p><button class="big" onClick={() => { setName(selfInfo.value?.name ?? ''); setStep(2) }}>{t('next')}</button></>}
-      {(err || connError.value) && <p class="err">{err || connError.value}</p>}
+      {err && <p class="err">{err}</p>}
+      <ConnectDiagnose />
     </>}
     {step === 2 && <>
       <h1>{t('ob_step2')}</h1><p>{t('ob_step2_text')}</p>

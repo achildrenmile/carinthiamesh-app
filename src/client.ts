@@ -38,9 +38,9 @@ export class Client {
   }
 
   /** Sendet einen Befehl und sammelt Antwortframes, bis `isLast` true liefert. */
-  private request(cmd: Uint8Array, isLast: (f: Frame) => boolean = () => true): Promise<Frame[]> {
+  private request(cmd: Uint8Array, isLast: (f: Frame) => boolean = () => true, timeoutMs = TIMEOUT_MS): Promise<Frame[]> {
     const run = () => new Promise<Frame[]>((resolve, reject) => {
-      const timer = window.setTimeout(() => { this.pending = undefined; reject(new Error(`Timeout bei Befehl ${cmd[0]}`)) }, TIMEOUT_MS)
+      const timer = window.setTimeout(() => { this.pending = undefined; reject(new Error(`Timeout bei Befehl ${cmd[0]}`)) }, timeoutMs)
       this.pending = { accept: f => (f.kind === 'err' || isLast(f) ? 'done' : 'more'), resolve, reject, frames: [], timer }
       this.onRaw('tx', cmd)
       this.t.send(cmd).catch(e => { clearTimeout(timer); this.pending = undefined; reject(e) })
@@ -50,16 +50,31 @@ export class Client {
     return next
   }
 
-  private async one<K extends Frame['kind']>(cmd: Uint8Array, kind: K): Promise<Extract<Frame, { kind: K }>> {
-    const [f] = await this.request(cmd, x => x.kind === kind)
+  private async one<K extends Frame['kind']>(cmd: Uint8Array, kind: K, timeoutMs?: number): Promise<Extract<Frame, { kind: K }>> {
+    const [f] = await this.request(cmd, x => x.kind === kind, timeoutMs)
     if (f?.kind === 'err') throw new Error(`Gerät meldet Fehler ${f.code}`)
     return f as Extract<Frame, { kind: K }>
   }
 
-  async start(): Promise<{ self: SelfInfo; device: DeviceInfo }> {
-    const self = (await this.one(appStart(), 'selfInfo')).info
-    const device = (await this.one(deviceQuery(), 'deviceInfo')).info
-    return { self, device }
+  /**
+   * Handshake. Der Companion (ESP32) verwirft Antworten, bis das BLE-Pairing abgeschlossen ist
+   * (SerialBLEInterface: deviceConnected erst in onAuthenticationComplete). APP_START ist idempotent,
+   * deshalb wird bei ausbleibender Antwort wiederholt, statt sofort aufzugeben.
+   */
+  async start(onAttempt: (n: number, err?: unknown) => void = () => {}): Promise<{ self: SelfInfo; device: DeviceInfo }> {
+    let lastErr: unknown
+    for (let attempt = 1; attempt <= 4; attempt++) {
+      onAttempt(attempt, lastErr)
+      try {
+        const self = (await this.one(appStart(), 'selfInfo', 4000)).info
+        const device = (await this.one(deviceQuery(), 'deviceInfo', 4000)).info
+        return { self, device }
+      } catch (e) {
+        lastErr = e
+        await new Promise(r => setTimeout(r, 1500))
+      }
+    }
+    throw new Error(`Das Gerät antwortet nicht (${lastErr instanceof Error ? lastErr.message : lastErr}). Meist fehlt das Pairing – siehe Hinweis.`)
   }
 
   /** Zeit nur vorwärts: Firmware lehnt secs < aktuelle Gerätezeit mit ILLEGAL_ARG ab. */

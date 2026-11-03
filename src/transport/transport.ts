@@ -11,4 +11,6 @@ export interface Transport {
   send(frame: Uint8Array): Promise<void>
   onFrame(cb: (frame: Uint8Array) => void): void
   onDisconnect(cb: () => void): void
+  /** Optional: Verbindungsschritte für die Fehlersuche. */
+  log?: (msg: string) => void
 }

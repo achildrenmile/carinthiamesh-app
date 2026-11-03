@@ -39,5 +39,6 @@ export const en: Record<keyof typeof de, string> = {
   set_obs_secret: 'Credentials are stored only on this device, in the browser.',
   set_reset: 'Delete all local data', set_reset_confirm: 'Really delete everything? Messages, contacts and readings will be lost.', set_about: 'About',
   obs_off: 'Off', obs_connecting: 'Connecting …', obs_online: 'Online', obs_offline: 'Offline (buffering)', obs_error: 'Error',
+  conn_hint_title: 'Connection not working?', conn_hint_1: 'The radio can only talk to one program at a time. Close any other MeshCore app completely.', conn_hint_2: 'The first time, enter the device PIN. If that does not help: remove the device in your phone’s Bluetooth settings (“Forget”) and pair again.', conn_hint_3: 'Switch the device off and on, then try again. If it still fails, please copy the log below and report it.', conn_copy: 'Copy log',
   error: 'Error', loading: 'Loading …', hours_ago: '{n} h ago', minutes_ago: '{n} min ago', just_now: 'just now',
 }

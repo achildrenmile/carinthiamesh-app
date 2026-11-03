@@ -44,5 +44,6 @@ export const de = {
   set_obs_secret: 'Zugangsdaten werden nur auf diesem Gerät im Browser gespeichert.',
   set_reset: 'Alle lokalen Daten löschen', set_reset_confirm: 'Wirklich alles löschen? Nachrichten, Kontakte und Messwerte gehen verloren.', set_about: 'Über',
   obs_off: 'Aus', obs_connecting: 'Verbinde …', obs_online: 'Online', obs_offline: 'Offline (puffert)', obs_error: 'Fehler',
+  conn_hint_title: 'Klappt die Verbindung nicht?', conn_hint_1: 'Das Funkgerät ist nur mit einem Programm gleichzeitig verbunden. Andere MeshCore-Apps ganz schließen.', conn_hint_2: 'Beim ersten Mal den Gerätecode (PIN) eingeben. Hilft das nicht: das Gerät in den Bluetooth-Einstellungen des Handys entfernen („Vergessen“) und neu koppeln.', conn_hint_3: 'Gerät aus- und einschalten, dann erneut versuchen. Bleibt es dabei, bitte das Protokoll unten kopieren und melden.', conn_copy: 'Protokoll kopieren',
   error: 'Fehler', loading: 'Lädt …', hours_ago: 'vor {n} Std.', minutes_ago: 'vor {n} Min.', just_now: 'gerade eben',
 } as const
