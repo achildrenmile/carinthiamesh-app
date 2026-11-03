@@ -77,9 +77,11 @@ npm run build      # statische Seite in dist/
 Aufbau: `src/protocol` (Frames, gegen Firmware verifiziert) · `src/transport` (austauschbar: Web Bluetooth, später Capacitor) · `src/client.ts` (ein Befehl gleichzeitig) · `src/session.ts` · `src/observer` · `src/ui`.
 Entscheidungen: [ADR-001](docs/ADR-001-protokoll-lib.md), [Spike-Ergebnis](docs/spike-ergebnis.md), [Gerätetest](docs/geraetetest.md).
 
-## Betrieb
+## Ausprobieren und Betrieb
 
-Statische Seite, kein Backend. Standard ist **GitHub Pages** (Workflow [`pages.yml`](.github/workflows/pages.yml), HTTPS inklusive). Alternativ als Container hinter nginx ([Dockerfile](Dockerfile), [deploy/](deploy/)).
+**Live:** https://achildrenmile.github.io/carinthiamesh-app/ (Android: Chrome, iPhone: Bluefy).
+
+Statische Seite, kein Backend. Jeder Push auf `main` wird getestet, gebaut und über **GitHub Pages** veröffentlicht (Workflow [`pages.yml`](.github/workflows/pages.yml)). Wie das im Einzelnen abläuft, lokal bauen, eigene Domain, Container-Variante: [docs/deployment.md](docs/deployment.md).
 Bekannt: Kartenkacheln kommen von openstreetmap.org (die IP des Nutzers geht dorthin).
 
 ## Lizenz und Betreiber
