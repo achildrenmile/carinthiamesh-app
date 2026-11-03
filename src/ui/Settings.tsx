@@ -59,7 +59,7 @@ export function Settings() {
     </div>}
     <div class="card">
       <button class="danger big" onClick={() => void reset()}>{t('set_reset')}</button>
-      <p class="muted">CarinthiaMesh · MIT · v0.1</p>
+      <p class="muted"><a href="https://carinthiamesh.com" target="_blank" rel="noopener">CarinthiaMesh</a> · <a href="https://github.com/achildrenmile/carinthiamesh-app" target="_blank" rel="noopener">GitHub</a> · MIT · v0.1</p>
     </div>
   </>
 }

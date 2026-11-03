@@ -4,6 +4,9 @@
   "private": true,
   "description": "MeshCore-Client von CarinthiaMesh (PWA)",
   "license": "MIT",
+  "homepage": "https://carinthiamesh.com",
+  "author": { "name": "CarinthiaMesh", "url": "https://carinthiamesh.com" },
+  "repository": { "type": "git", "url": "git+https://github.com/achildrenmile/carinthiamesh-app.git" },
   "type": "module",
   "scripts": {
     "dev": "vite",

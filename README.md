@@ -3,7 +3,7 @@
 [![CI](https://github.com/achildrenmile/carinthiamesh-app/actions/workflows/ci.yml/badge.svg)](https://github.com/achildrenmile/carinthiamesh-app/actions/workflows/ci.yml)
 [![Lizenz: MIT](https://img.shields.io/badge/Lizenz-MIT-blue.svg)](LICENSE)
 
-**MeshCore-Client von CarinthiaMesh** – eine Web-App, mit der du dein MeshCore-Funkgerät per Bluetooth direkt im Browser bedienst. Ohne Store, ohne Installation, auf Wunsch als App auf dem Startbildschirm.
+**MeshCore-Client von [CarinthiaMesh](https://carinthiamesh.com)** – eine Web-App, mit der du dein MeshCore-Funkgerät per Bluetooth direkt im Browser bedienst. Ohne Store, ohne Installation, auf Wunsch als App auf dem Startbildschirm.
 
 ## Worum es geht
 
@@ -82,6 +82,8 @@ Entscheidungen: [ADR-001](docs/ADR-001-protokoll-lib.md), [Spike-Ergebnis](docs/
 Statische Seite, kein Backend. Standard ist **GitHub Pages** (Workflow [`pages.yml`](.github/workflows/pages.yml), HTTPS inklusive). Alternativ als Container hinter nginx ([Dockerfile](Dockerfile), [deploy/](deploy/)).
 Bekannt: Kartenkacheln kommen von openstreetmap.org (die IP des Nutzers geht dorthin).
 
-## Lizenz
+## Lizenz und Betreiber
+
+Ein Projekt von **[CarinthiaMesh](https://carinthiamesh.com)** – der Initiative für das MeshCore-Netz in Kärnten.
 
 [MIT](LICENSE) – frei nutzbar, veränderbar und weitergebbar. Das Projekt steht nicht in Verbindung mit dem MeshCore-Projekt selbst; „MeshCore" bezeichnet hier das Funknetz bzw. Protokoll.
