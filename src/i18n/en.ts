@@ -8,7 +8,7 @@ export const en: Record<keyof typeof de, string> = {
   support_ios: 'This browser cannot talk to Bluetooth devices. On iPhone and iPad please use the free “Bluefy” app and open this page there.',
   support_other: 'This browser does not support Web Bluetooth. Please use Chrome or Edge.',
   ob_welcome: 'Welcome to the MeshCore network', ob_welcome_text: 'MeshCore is a radio network that works without the internet. This app lets you talk to others in Carinthia and beyond through your radio.',
-  ob_step1: 'Step 1 of 4: Connect your radio', ob_step1_text: 'Switch your radio on and tap the button. Pick your device from the list.',
+  ob_step1: 'Step 1 of 4: Connect your radio', ob_step1_text: 'Switch your radio on and tap the button. Pick your device from the list. The first time, your phone asks for the device PIN – it is shown on your device’s display or in its manual. Afterwards it may take a few seconds.',
   ob_step2: 'Step 2 of 4: Your name', ob_step2_text: 'This is how others see you. For repeaters please use the AT-District-Place scheme.', ob_name: 'Your name',
   ob_step3: 'Step 3 of 4: Radio setup', ob_step3_text: 'The standard settings for Austria are sent to your device.',
   ob_step3_missing: 'No radio settings are configured for Austria yet. Your device stays unchanged.',

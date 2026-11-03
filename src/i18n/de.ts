@@ -7,7 +7,7 @@ export const de = {
   support_other: 'Dieser Browser unterstützt kein Web Bluetooth. Bitte Chrome oder Edge verwenden.',
   // Onboarding
   ob_welcome: 'Willkommen im MeshCore-Netz', ob_welcome_text: 'MeshCore ist ein Funknetz ohne Internet. Mit dieser App sprichst du über dein Funkgerät mit anderen in Kärnten und darüber hinaus.',
-  ob_step1: 'Schritt 1 von 4: Funkgerät verbinden', ob_step1_text: 'Schalte dein Funkgerät ein und tippe auf den Knopf. Wähle dein Gerät in der Liste aus.',
+  ob_step1: 'Schritt 1 von 4: Funkgerät verbinden', ob_step1_text: 'Schalte dein Funkgerät ein und tippe auf den Knopf. Wähle dein Gerät in der Liste aus. Beim ersten Mal fragt das Handy nach dem Gerätecode (PIN) – er steht auf dem Display deines Geräts oder in dessen Anleitung. Danach kann es ein paar Sekunden dauern.',
   ob_step2: 'Schritt 2 von 4: Dein Name', ob_step2_text: 'So sehen dich andere im Netz. Bei Repeatern bitte das Schema AT-Bezirk-Ort verwenden.', ob_name: 'Dein Name',
   ob_step3: 'Schritt 3 von 4: Funk einrichten', ob_step3_text: 'Die Standard-Einstellungen für Österreich werden auf dein Gerät übertragen.',
   ob_step3_missing: 'Für Österreich sind noch keine Funk-Einstellungen hinterlegt. Dein Gerät bleibt unverändert.',
