@@ -1,0 +1,14 @@
+name: Idee oder Verbesserung
+description: Vorschlag für Funktion, Verständlichkeit oder Übersetzung
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes: { label: "Was ist schwierig oder fehlt?", description: "Beschreibe die Situation, nicht gleich die Lösung. Screenshots willkommen (ohne private Daten)." }
+    validations: { required: true }
+  - type: textarea
+    id: idee
+    attributes: { label: "Dein Vorschlag (optional)" }
+  - type: dropdown
+    id: wer
+    attributes: { label: "Für wen?", options: [Einsteiger (Einfach-Modus), Tüftler, Betreiber von Repeatern, Alle] }

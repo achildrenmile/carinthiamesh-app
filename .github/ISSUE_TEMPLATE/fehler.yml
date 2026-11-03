@@ -1,0 +1,21 @@
+name: Fehler melden
+description: Etwas funktioniert nicht wie erwartet
+labels: [bug]
+body:
+  - type: textarea
+    id: was
+    attributes: { label: "Was ist passiert, und was hast du erwartet?" }
+    validations: { required: true }
+  - type: textarea
+    id: schritte
+    attributes: { label: "Schritte zum Nachstellen" }
+  - type: input
+    id: umgebung
+    attributes: { label: "Gerät, Firmware, Browser, Betriebssystem" }
+    validations: { required: true }
+  - type: dropdown
+    id: modus
+    attributes: { label: "Modus", options: [Einfach, Tüftler] }
+  - type: textarea
+    id: log
+    attributes: { label: "Konsolen- oder Protokoll-Ausgabe (geschwärzt)", render: text }

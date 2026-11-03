@@ -1,0 +1,33 @@
+name: Gerätetest-Bericht
+description: Du hast die App mit einem echten MeshCore-Companion ausprobiert
+labels: [geraetetest]
+body:
+  - type: markdown
+    attributes: { value: "Danke! **Keine** privaten Kanalschlüssel, Zugangsdaten oder Public Keys posten. Das Protokoll-Log (Tüftler-Modus → Gerät → Rohdaten) enthält bei `CHANNEL_INFO` Schlüssel im Klartext – vorher schwärzen." }
+  - type: input
+    id: geraet
+    attributes: { label: "Funkgerät und Firmware", placeholder: "Heltec V3, Companion v1.15.0" }
+    validations: { required: true }
+  - type: input
+    id: browser
+    attributes: { label: "Browser und Betriebssystem", placeholder: "Chrome 140 / Android 15, oder Bluefy / iOS 19" }
+    validations: { required: true }
+  - type: checkboxes
+    id: klappt
+    attributes:
+      label: Was hat funktioniert?
+      options:
+        - label: Verbinden und Pairing
+        - label: Name, Funk-Preset, Kanäle im Assistenten
+        - label: Nachricht im Kanal senden
+        - label: Nachricht im Kanal empfangen
+        - label: Direktnachricht inklusive „Angekommen"
+        - label: Kontakte und Karte
+        - label: Messwerte (Telemetrie) eines Repeaters
+        - label: Observer sendet an den Broker (Bildschirm an)
+  - type: textarea
+    id: probleme
+    attributes: { label: "Was hat nicht funktioniert / was ist aufgefallen?", description: "Fehlermeldungen wörtlich, was du zuvor getan hast." }
+  - type: textarea
+    id: log
+    attributes: { label: "Protokoll-Auszug (geschwärzt)", render: text }
