@@ -10,6 +10,7 @@ import { Onboarding } from './Onboarding'
 import { Settings } from './Settings'
 import { Telemetry } from './Telemetry'
 import { ConnectGate } from './ConnectGate'
+import { MeshBackground } from './MeshBackground'
 
 const MapView = lazy(() => import('./MapView').then(m => ({ default: m.MapView }))) // Leaflet erst bei Bedarf
 
@@ -23,7 +24,15 @@ const TABS: Array<{ id: string; label: Key; tinkerer?: boolean }> = [
 ]
 
 export function App() {
-  if (!onboarded.value) return <Onboarding />
+  return (
+    <>
+      <MeshBackground />
+      {!onboarded.value ? <Onboarding /> : <MainUI />}
+    </>
+  )
+}
+
+function MainUI() {
   const [, page = 'chat', ...rest] = hash.value.replace(/^#\/?/, '/').split('/')
   const arg = rest.join('/')
   const state = connState.value

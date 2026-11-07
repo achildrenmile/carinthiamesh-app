@@ -69,28 +69,28 @@ export function Onboarding() {
     </div>
 
     {/* Step 0: Welcome Start Screen */}
-    {step === 0 && <div class="card" style="padding:2rem 1.5rem;text-align:center">
+    {step === 0 && <div class="card" style="padding:2.5rem 1.5rem;text-align:center">
       <div style="font-size:3rem;margin-bottom:1rem">📡</div>
-      <h1 style="font-size:1.75rem;margin-bottom:0.75rem">{t('ob_welcome')}</h1>
+      <h1 style="font-size:1.8rem;margin-bottom:0.75rem">{t('ob_welcome')}</h1>
       <p style="color:var(--muted);font-size:1.05rem;line-height:1.6;margin-bottom:2rem">{t('ob_welcome_text')}</p>
       <button class="big" onClick={() => setStep(1)}>{t('ob_start')}</button>
     </div>}
 
     {/* Step 1: Mode Selection */}
-    {step === 1 && <>
-      <h1>{t('ob_mode_title')}</h1>
-      <p>{t('ob_mode_text')}</p>
+    {step === 1 && <div style="text-align:center">
+      <h1 style="font-size:1.8rem">{t('ob_mode_title')}</h1>
+      <p style="color:var(--muted)">{t('ob_mode_text')}</p>
       <div style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem">
-        <button class="big" onClick={() => { void saveMode('simple'); setStep(2) }}>
-          <strong>{t('ob_mode_simple')}</strong>
-          <div style="font-weight:normal;font-size:0.9rem;opacity:0.85;margin-top:0.25rem">{t('set_mode_simple_desc')}</div>
+        <button class="big" style="flex-direction:column;align-items:center;padding:1.2rem;text-align:center" onClick={() => { void saveMode('simple'); setStep(2) }}>
+          <strong style="font-size:1.25rem">{t('ob_mode_simple')}</strong>
+          <div style="font-weight:normal;font-size:0.88rem;opacity:0.8;margin-top:0.35rem">{t('set_mode_simple_desc')}</div>
         </button>
-        <button class="big secondary" onClick={() => { void saveMode('tinkerer'); setStep(2) }}>
-          <strong>{t('ob_mode_tinkerer')}</strong>
-          <div style="font-weight:normal;font-size:0.9rem;opacity:0.85;margin-top:0.25rem">{t('set_mode_tinkerer_desc')}</div>
+        <button class="big secondary" style="flex-direction:column;align-items:center;padding:1.2rem;text-align:center" onClick={() => { void saveMode('tinkerer'); setStep(2) }}>
+          <strong style="font-size:1.25rem">{t('ob_mode_tinkerer')}</strong>
+          <div style="font-weight:normal;font-size:0.88rem;opacity:0.8;margin-top:0.35rem">{t('set_mode_tinkerer_desc')}</div>
         </button>
       </div>
-    </>}
+    </div>}
 
     {/* Step 2: Connect Radio */}
     {step === 2 && <>
@@ -147,9 +147,9 @@ export function Onboarding() {
     </>}
 
     {/* Step 6: Done */}
-    {step === 6 && <div class="card" style="padding:2rem 1.5rem;text-align:center">
+    {step === 6 && <div class="card" style="padding:2.5rem 1.5rem;text-align:center">
       <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
-      <h1 style="font-size:1.75rem;margin-bottom:0.75rem">{t('ob_done')}</h1>
+      <h1 style="font-size:1.8rem;margin-bottom:0.75rem">{t('ob_done')}</h1>
       <p style="color:var(--muted);font-size:1.05rem;line-height:1.6;margin-bottom:2rem">{t('ob_done_text')}</p>
       <button class="big" onClick={() => { void saveOnboarded(true); location.hash = '#/chat' }}>{t('ob_start')}</button>
     </div>}

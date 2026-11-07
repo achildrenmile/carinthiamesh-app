@@ -61,8 +61,10 @@ function Thread({ scope }: { scope: string }) {
   }
 
   return <>
-    <p><a href="#/chat">← {t('nav_chat')}</a></p>
-    <h2>{title}</h2>
+    <div style="position:sticky;top:0;background:var(--bg);z-index:5;padding:.5rem 0 1rem;display:flex;align-items:center;gap:1rem;border-bottom:1px solid var(--line);margin-bottom:1rem">
+      <a href="#/chat" class="btn secondary" style="min-height:2.4rem;padding:.3rem 1rem;font-size:0.85rem">← {t('nav_chat')}</a>
+      <h2 style="margin:0;font-size:1.2rem">{title}</h2>
+    </div>
     {msgs.length === 0 && <p class="muted">{t('chat_empty')}</p>}
     <div class="thread">{msgs.map(m => <Bubble key={m.id} m={m} />)}<div ref={end} /></div>
     {err && <p class="err">{err}</p>}
@@ -75,13 +77,24 @@ function Thread({ scope }: { scope: string }) {
 
 function Bubble({ m }: { m: MessageRow }) {
   const time = new Date(m.ts * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-  const status = m.status === 'failed' ? t('chat_failed') : m.status === 'sending' ? t('chat_sending') : m.status === 'acked' ? t('chat_acked') : m.status === 'sent' ? t('chat_sent') : ''
+  let status = ''
+  if (m.status === 'failed') status = t('chat_failed')
+  else if (m.status === 'sending') status = t('chat_sending')
+  else if (m.status === 'acked') {
+    const hopInfo = m.pathLen != null ? (m.pathLen === 255 ? t('chat_hops_direct') : t('chat_relayed', { n: m.pathLen & 63 })) : ''
+    status = `${t('chat_acked')}${hopInfo ? ` (${hopInfo})` : ''}`
+  } else if (m.status === 'sent') {
+    const hopInfo = m.pathLen != null ? (m.pathLen === 255 ? t('chat_hops_direct') : t('chat_relayed', { n: m.pathLen & 63 })) : ''
+    status = `${t('chat_sent')}${hopInfo ? ` (${hopInfo})` : ''}`
+  }
+
   return <div class={`bubble${m.outgoing ? ' mine' : ''}`}>
     {m.sender && <strong>{m.sender}<br /></strong>}
     {m.text}
     <div class="meta">
       {time}{m.outgoing && status ? ` · ${status}` : ''}
       {!m.outgoing && mode.value === 'tinkerer' && ` · SNR ${m.snr ?? '–'} dB · ${hops(m.pathLen)}`}
+      {!m.outgoing && mode.value === 'simple' && m.pathLen != null && m.pathLen !== 255 && ` · ${t('chat_relayed', { n: m.pathLen & 63 })}`}
     </div>
   </div>
 }

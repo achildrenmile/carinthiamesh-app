@@ -6,8 +6,8 @@ export const de = {
   support_ios: 'Dieser Browser kann keine Bluetooth-Geräte ansprechen. Auf iPhone und iPad bitte die kostenlose App „Bluefy“ verwenden und diese Seite dort öffnen.',
   support_other: 'Dieser Browser unterstützt kein Web Bluetooth. Bitte Chrome oder Edge verwenden.',
   // Onboarding
-  ob_mode_title: 'Wie möchtest du starten?', ob_mode_text: 'Bist du neu / unerfahren oder bereits vertraut / Tüftler?',
-  ob_mode_simple: 'Neu / Unerfahren (Einfach)', ob_mode_tinkerer: 'Vertraut / Tüftler',
+  ob_mode_title: 'Wie möchtest du starten?', ob_mode_text: 'Bist du neu / unerfahren oder bereits vertraut / Experte?',
+  ob_mode_simple: 'Einfach', ob_mode_tinkerer: 'Experte',
   ob_welcome: 'Willkommen im MeshCore-Netz', ob_welcome_text: 'MeshCore ist ein Funknetz ohne Internet. Mit dieser App sprichst du über dein Funkgerät mit anderen in Kärnten und darüber hinaus.',
   ob_step1: 'Schritt 1 von 4: Funkgerät verbinden', ob_step1_text: 'Schalte dein Funkgerät ein und tippe auf den Knopf. Wähle dein Gerät in der Liste aus. Beim ersten Mal fragt das Handy nach dem Gerätecode (PIN) – er steht auf dem Display deines Geräts oder in dessen Anleitung. Danach kann es ein paar Sekunden dauern.',
   ob_step2: 'Schritt 2 von 4: Dein Name', ob_step2_text: 'So sehen dich andere im Netz. Bei Repeatern bitte das Schema AT-Bezirk-Ort verwenden.', ob_name: 'Dein Name',
@@ -24,7 +24,7 @@ export const de = {
   ob_busy: 'Bitte warten …',
   // Chat
   chat_title: 'Gespräche', chat_channels: 'Kanäle', chat_direct: 'Direktnachrichten', chat_empty: 'Noch keine Nachrichten.', chat_placeholder: 'Nachricht schreiben …', chat_send: 'Senden',
-  chat_failed: 'Nicht gesendet', chat_sending: 'Wird gesendet …', chat_sent: 'Gesendet', chat_acked: 'Angekommen', chat_maxlen: 'Maximal {n} Zeichen',
+  chat_failed: 'Nicht gesendet', chat_sending: 'Wird gesendet …', chat_sent: 'Gesendet', chat_acked: 'Angekommen', chat_relayed: 'weitergeleitet ({n} Stationen)', chat_maxlen: 'Maximal {n} Zeichen',
   chat_hops_direct: 'direkt', chat_hops: '{n} Stationen', chat_no_channels: 'Keine Kanäle auf dem Gerät. Verbinde dein Gerät.',
   // Kontakte
   contacts_title: 'Kontakte', contacts_empty: 'Noch keine Kontakte. Sie erscheinen, sobald Stationen in der Nähe senden.', contacts_search: 'Suchen …',
