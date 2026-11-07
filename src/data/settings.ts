@@ -11,18 +11,21 @@ export const defaultObserver: ObserverSettings = { enabled: false, url: '', user
 export const mode = signal<Mode>('simple')
 export const lang = signal<'de' | 'en'>('de')
 export const onboarded = signal(false)
+export const tourShown = signal(false)
 export const observer = signal<ObserverSettings>(defaultObserver)
 export const telemetryIntervalSec = signal(0) // 0 = nur manuell
 
 export async function loadSettings() {
   mode.value = await getKv<Mode>('mode', 'simple')
   lang.value = await getKv('lang', navigator.language.startsWith('en') ? 'en' : 'de')
-  onboarded.value = await getKv('onboarded', false)
+  onboarded.value = import.meta.env.DEV ? false : await getKv('onboarded', false)
+  tourShown.value = await getKv('tourShown', false)
   observer.value = { ...defaultObserver, ...(await getKv<Partial<ObserverSettings>>('observer', {})) }
   telemetryIntervalSec.value = await getKv('telemetryIntervalSec', 0)
 }
 export const saveMode = (m: Mode) => { mode.value = m; return setKv('mode', m) }
 export const saveLang = (l: 'de' | 'en') => { lang.value = l; return setKv('lang', l) }
 export const saveOnboarded = (v: boolean) => { onboarded.value = v; return setKv('onboarded', v) }
+export const saveTourShown = (v: boolean) => { tourShown.value = v; return setKv('tourShown', v) }
 export const saveObserver = (o: ObserverSettings) => { observer.value = o; return setKv('observer', o) }
 export const saveTelemetryInterval = (s: number) => { telemetryIntervalSec.value = s; return setKv('telemetryIntervalSec', s) }

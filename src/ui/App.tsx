@@ -1,6 +1,6 @@
 import { signal } from '@preact/signals'
 import { connState, connect, disconnect } from '../session'
-import { mode, onboarded } from '../data/settings'
+import { mode, onboarded, tourShown, saveTourShown } from '../data/settings'
 import { t, type Key } from '../i18n'
 import { Chat } from './Chat'
 import { Contacts } from './Contacts'
@@ -43,6 +43,15 @@ export function App() {
         </span>
       </header>
       <main>
+        {!tourShown.value && <div class="card" style="border-left:4px solid var(--accent);margin-bottom:1.2rem">
+          <h3 style="margin-top:0">{t('ob_tour_title')}</h3>
+          <div style="display:flex;flex-direction:column;gap:.7rem;margin:1rem 0">
+            <div><strong>{t('ob_tour_chat_title')}</strong> <span class="muted">{t('ob_tour_chat_desc')}</span></div>
+            <div><strong>{t('ob_tour_contacts_title')}</strong> <span class="muted">{t('ob_tour_contacts_desc')}</span></div>
+            <div><strong>{t('ob_tour_map_title')}</strong> <span class="muted">{t('ob_tour_map_desc')}</span></div>
+          </div>
+          <button class="secondary" style="width:100%" onClick={() => void saveTourShown(true)}>{t('tour_dismiss')}</button>
+        </div>}
         {page === 'settings' ? <Settings /> :
           page === 'map' ? <Suspense fallback={<p>{t('loading')}</p>}><MapView /></Suspense> :
           page === 'contacts' ? <ConnectGate soft><Contacts arg={arg} /></ConnectGate> :

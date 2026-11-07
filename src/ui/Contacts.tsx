@@ -15,7 +15,11 @@ function List() {
   const [q, setQ] = useState('')
   const [msg, setMsg] = useState('')
   const all = useLive(() => db.contacts.orderBy('name').toArray(), [], [])!
-  const list = all.filter(c => c.name.toLowerCase().includes(q.toLowerCase()))
+  const filtered = mode.value === 'simple' ? all.filter(c => c.type !== 2) : all
+  const list = filtered.filter(c => c.name.toLowerCase().includes(q.toLowerCase()))
+  const persons = list.filter(c => c.type !== 2)
+  const repeaters = list.filter(c => c.type === 2)
+
   const advert = async () => {
     try { await getClient().advert(true); setMsg(t('advert_sent')); setTimeout(() => void refreshContacts().catch(() => undefined), 3000) }
     catch (e) { setMsg(String(e)) }
@@ -27,10 +31,20 @@ function List() {
     {msg && <p class="muted">{msg}</p>}
     {all.length === 0 && <p class="muted">{t('contacts_empty')}</p>}
     <div class="list">
-      {list.map(c => <a class="item" key={c.key} href={`#/contacts/${c.key}`}>
-        <strong>{c.name || c.key.slice(0, 8)}</strong>
-        <div class="sub">{contactTypeLabel(c.type)}{c.lastAdvert ? ` · ${ago(c.lastAdvert * 1000)}` : ''}</div>
-      </a>)}
+      {persons.length > 0 && <>
+        {mode.value === 'tinkerer' && <h3 style="margin:.8rem 0 .4rem;font-size:.95rem;color:var(--muted)">{t('contacts_title')}</h3>}
+        {persons.map(c => <a class="item" key={c.key} href={`#/contacts/${c.key}`}>
+          <strong>{c.name || c.key.slice(0, 8)}</strong>
+          <div class="sub">{contactTypeLabel(c.type)}{c.lastAdvert ? ` · ${ago(c.lastAdvert * 1000)}` : ''}</div>
+        </a>)}
+      </>}
+      {mode.value === 'tinkerer' && repeaters.length > 0 && <>
+        <h3 style="margin:1.4rem 0 .4rem;font-size:.95rem;color:var(--muted)">{t('type_repeater')}</h3>
+        {repeaters.map(c => <a class="item" key={c.key} href={`#/contacts/${c.key}`}>
+          <strong>{c.name || c.key.slice(0, 8)}</strong>
+          <div class="sub">{contactTypeLabel(c.type)}{c.lastAdvert ? ` · ${ago(c.lastAdvert * 1000)}` : ''}</div>
+        </a>)}
+      </>}
     </div>
   </>
 }
